@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guia Rápido de Python</title>
+    <!-- Carregar Tailwind CSS para um estilo moderno -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carregar Highlight.js para realce de sintaxe -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+      /* Definir a fonte Inter como padrão */
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      /* Garantir que o highlight.js sabe que o código é Python */
+      .python {
+        border-radius: 0.5rem; /* cantos arredondados */
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-white min-h-screen p-8 md:p-12 font-sans">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-5xl font-bold text-cyan-400 mb-8">
+        Guia Rápido de Python
+      </h1>
+      <p class="text-xl text-gray-300 mb-8">
+        Uma página de consulta com os conceitos essenciais (Variáveis, Tipos,
+        Funções e Loops) para o projeto Astro Pi.
+      </p>
+
+      <!-- Navegação Rápida -->
+      <nav class="bg-gray-800 rounded-lg p-4 mb-12">
+        <ul class="flex flex-wrap gap-4">
+          <li>
+            <a
+              href="#variaveis"
+              class="text-lg font-medium text-white hover:text-cyan-400"
+              >Variáveis</a
+            >
+          </li>
+          <li>
+            <a
+              href="#tipos"
+              class="text-lg font-medium text-white hover:text-cyan-400"
+              >Tipos de Dados</a
+            >
+          </li>
+          <li>
+            <a
+              href="#funcoes"
+              class="text-lg font-medium text-white hover:text-cyan-400"
+              >Funções</a
+            >
+          </li>
+          <li>
+            <a
+              href="#loops"
+              class="text-lg font-medium text-white hover:text-cyan-400"
+              >Loops</a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <!-- 1. Secção de Variáveis -->
+      <section id="variaveis" class="mb-12">
+        <h2
+          class="text-3xl font-bold mt-8 mb-4 border-b-2 border-cyan-500 pb-2"
+        >
+          1. Variáveis
+        </h2>
+        <p class="text-lg text-gray-300 mb-4">
+          Variáveis são contentores para armazenar valores de dados. Em Python,
+          não precisas de declarar o tipo; basta atribuir um valor a um nome.
+        </p>
+        <pre><code class="python">
+# Variáveis são usadas para guardar dados (rótulos).
+# O Python atribui o tipo de dado automaticamente.
+
+nome_da_missao = "Astro Pi"
+ano = 2025
+velocidade_media_teste = 7.67
+simulacao_ativa = True
+
+# Podes imprimir variáveis usando f-strings (strings formatadas)
+# Coloca um 'f' antes das aspas e as variáveis dentro de {}
+print(f"Missão: {nome_da_missao}")
+print(f"Ano: {ano}")
+print(f"Velocidade de Teste: {velocidade_media_teste} km/s")
+            </code></pre>
+      </section>
+
+      <!-- 2. Secção de Tipos de Dados -->
+      <section id="tipos" class="mb-12">
+        <h2
+          class="text-3xl font-bold mt-8 mb-4 border-b-2 border-cyan-500 pb-2"
+        >
+          2. Tipos de Dados (Types)
+        </h2>
+        <p class="text-lg text-gray-300 mb-4">
+          Python tem vários tipos de dados incorporados. Estes são os mais
+          importantes para nós.
+        </p>
+        <pre><code class="python">
+# str (String / Texto)
+planeta = "Terra"
+
+# int (Integer / Número Inteiro)
+altitude_km = 408
+
+# float (Número com casas decimais)
+massa_kg = 420000.5
+
+# bool (Boolean / Verdadeiro ou Falso)
+em_orbita = True
+
+# list (Lista - mutável, ordenada, permite duplicados)
+tripulacao = ["Arnaldo", "Bruno", "Carla"]
+dados_velocidade = [7.66, 7.67, 7.65, 7.67]
+
+# dict (Dicionário - pares chave/valor, mutável)
+# Útil para organizar dados
+dados_da_foto = {
+    "ficheiro": "imagem_01.jpg",
+    "altitude": 408.5,
+    "lat": 51.5072,
+    "lon": -0.1276
+}
+
+# Podes aceder a dados numa lista pelo índice
+print(f"Primeiro membro da tripulação: {tripulacao[0]}") # Output: Arnaldo
+
+# Podes aceder a dados num dicionário pela chave
+print(f"Ficheiro da foto: {dados_da_foto['ficheiro']}") # Output: imagem_01.jpg
+
+# Podes verificar o tipo com a função type()
+print(f"O tipo de 'altitude_km' é: {type(altitude_km)}")
+print(f"O tipo de 'tripulacao' é: {type(tripulacao)}")
+print(f"O tipo de 'dados_da_foto' é: {type(dados_da_foto)}")
+            </code></pre>
+      </section>
+
+      <!-- 3. Secção de Funções -->
+      <section id="funcoes" class="mb-12">
+        <h2
+          class="text-3xl font-bold mt-8 mb-4 border-b-2 border-cyan-500 pb-2"
+        >
+          3. Funções (Functions)
+        </h2>
+        <p class="text-lg text-gray-300 mb-4">
+          Funções são blocos de código reutilizáveis que só são executados
+          quando chamados. Usamos
+          <code class="bg-gray-700 p-1 rounded">def</code> para as definir. Elas
+          ajudam a organizar o código.
+        </p>
+        <pre><code class="python">
+# 1. Função simples (sem argumentos)
+def saudar_equipa():
+    print("Olá, equipa Astro Pi! Vamos programar.")
+
+# Temos de "chamar" a função para a executar
+saudar_equipa()
+
+# 2. Função com argumentos (parâmetros)
+def calcular_km_para_metros(kms):
+    """Uma docstring explica o que a função faz."""
+    metros = kms * 1000
+    print(f"{kms} km são {metros} metros.")
+
+# Passa o valor 408 para o argumento 'kms'
+calcular_km_para_metros(408)
+
+# 3. Função que "devolve" (return) um valor
+# Esta é a mais importante para o nosso projeto!
+def formatar_para_resultado(velocidade):
+    """Formata a velocidade para o ficheiro result.txt."""
+    # Formata para 4 casas decimais (ex: 7.1235)
+    valor_formatado = f"{velocidade:.4f}"
+    return valor_formatado
+
+# O valor devolvido é guardado numa variável
+velocidade_calculada = 7.6712345
+velocidade_final = formatar_para_resultado(velocidade_calculada)
+
+print(f"Valor a escrever no ficheiro: {velocidade_final}")
+            </code></pre>
+      </section>
+
+      <!-- 4. Secção de Loops -->
+      <section id="loops" class="mb-12">
+        <h2
+          class="text-3xl font-bold mt-8 mb-4 border-b-2 border-cyan-500 pb-2"
+        >
+          4. Loops (Ciclos)
+        </h2>
+        <p class="text-lg text-gray-300 mb-4">
+          Loops servem para repetir código. Os mais comuns são
+          <code class="bg-gray-700 p-1 rounded">for</code> (para iterar sobre
+          uma sequência) e
+          <code class="bg-gray-700 p-1 rounded">while</code> (enquanto uma
+          condição for verdadeira).
+        </p>
+        <pre><code class="python">
+# --- Loop 'for' (para iterar sobre uma lista) ---
+tripulacao = ["Arnaldo", "Bruno", "Carla"]
+
+print("Membros da Tripulação:")
+for membro in tripulacao:
+    print(f"- {membro}")
+
+# Também podes usar range() para contar
+print("Contagem decrescente:")
+for i in range(3, 0, -1): # De 3 até 1 (não inclui o 0)
+    print(i)
+print("Lançar!")
+
+# --- Loop 'while' (enquanto uma condição for verdadeira) ---
+# (Isto é CRUCIAL para o vosso loop de 10 minutos!)
+
+import datetime
+import time # Para podermos fazer 'sleep'
+
+# Define o tempo de início
+tempo_inicio = datetime.datetime.now()
+# Define um tempo limite curto para o exemplo (5 seg)
+# Na missão, serão 10 minutos (timedelta(minutes=10))
+tempo_limite = datetime.timedelta(seconds=5)
+
+print(f"Iniciando simulação (loop 'while' de {tempo_limite.seconds} segundos)...")
+
+while (datetime.datetime.now() - tempo_inicio) < tempo_limite:
+    # O vosso código de recolha de dados (câmara, GPS) viria aqui
+    print("...a recolher dados...")
+    time.sleep(1) # Espera 1 segundo
+    
+print("Loop 'while' terminado! Limite de tempo atingido.")
+            </code></pre>
+      </section>
+    </div>
+
+    <!-- Script para ativar o Highlight.js -->
+    <script>
+      hljs.highlightAll();
+    </script>
+  </body>
+</html>

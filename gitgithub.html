@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guia Rápido de Git & GitHub</title>
+    <!-- Carregar Tailwind CSS para um estilo moderno -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carregar Highlight.js para realce de sintaxe (vamos usar o tema 'bash') -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+      /* Definir a fonte Inter como padrão */
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      /* Garantir que o highlight.js sabe que o código é 'bash' (comandos de terminal) */
+      .bash {
+        border-radius: 0.5rem; /* cantos arredondados */
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-white min-h-screen p-8 md:p-12 font-sans">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-5xl font-bold text-green-400 mb-8">
+        Guia Rápido de Git & GitHub
+      </h1>
+      <p class="text-xl text-gray-300 mb-12">
+        Como usar o controlo de versões no nosso projeto Astro Pi com o VS Code.
+      </p>
+
+      <!-- 1. Secção de Conceitos -->
+      <section id="conceitos" class="mb-12">
+        <h2
+          class="text-3xl font-bold mt-8 mb-4 border-b-2 border-green-500 pb-2"
+        >
+          1. O Conceito (Git vs. GitHub)
+        </h2>
+        <p class="text-lg text-gray-300 mb-4">
+          É simples: o <b class="text-green-400">Git</b> é o programa no teu PC
+          que tira "fotografias" (snapshots) do teu código. O
+          <b class="text-green-400">GitHub</b> é o site (a "nuvem") onde guardas
+          essas fotografias online para partilhar com a tua equipa e ter um
+          backup.
+        </p>
+        <ul class="list-disc list-inside text-lg text-gray-300 space-y-2">
+          <li>
+            <strong class="text-white">Repositório (Repo):</strong> A pasta do
+            teu projeto.
+          </li>
+          <li>
+            <strong class="text-white">Commit:</strong> Uma "fotografia" ou um
+            "ponto de gravação" (save point) do teu código.
+          </li>
+          <li>
+            <strong class="text-white">Push:</strong> Enviar os teus commits
+            locais para o GitHub.
+          </li>
+          <li>
+            <strong class="text-white">Clone:</strong> Copiar um repositório do
+            GitHub para o teu PC.
+          </li>
+        </ul>
+      </section>
+
+      <!-- 2. Secção de Configuração -->
+      <section id="setup" class="mb-12">
+        <h2
+          class="text-3xl font-bold mt-8 mb-4 border-b-2 border-green-500 pb-2"
+        >
+          2. Configuração Inicial (Só fazes 1 vez)
+        </h2>
+        <p class="text-lg text-gray-300 mb-4">
+          Antes do teu primeiro commit, tens de dizer ao Git quem tu és. Abre o
+          terminal (no VS Code:
+          <code class="bg-gray-700 p-1 rounded">Terminal > New Terminal</code>)
+          e corre estes dois comandos:
+        </p>
+        <pre><code class="bash">
+# Define o teu nome de utilizador (usa o teu nome real ou nick)
+git config --global user.name "O Teu Nome"
+
+# Define o teu email (o mesmo que usaste no GitHub)
+git config --global user.email "o.teu.email@exemplo.com"
+            </code></pre>
+      </section>
+
+      <!-- 3. Secção do Workflow -->
+      <section id="workflow" class="mb-12">
+        <h2
+          class="text-3xl font-bold mt-8 mb-4 border-b-2 border-green-500 pb-2"
+        >
+          3. O Workflow da Sessão (O Ciclo)
+        </h2>
+        <p class="text-lg text-gray-300 mb-4">
+          Em cada sessão, vamos seguir este ciclo. 99% do tempo, vais usar os
+          botões do VS Code, que fazem estes comandos por ti.
+        </p>
+        <div class="bg-gray-800 p-6 rounded-lg">
+          <p class="text-xl font-mono text-center">
+            <span class="text-cyan-400">Clone</span> (Só na Sessão 1)
+            <span class="text-white"> → </span>
+            <span class="text-yellow-400">Programar</span> (Editar Código)
+            <span class="text-white"> → </span>
+            <span class="text-green-400">Stage (Add)</span>
+            <span class="text-white"> → </span>
+            <span class="text-green-400">Commit</span>
+            <span class="text-white"> → </span>
+            <span class="text-cyan-400">Push</span>
+          </p>
+        </div>
+      </section>
+
+      <!-- 4. Secção de Comandos Essenciais -->
+      <section id="comandos" class="mb-12">
+        <h2
+          class="text-3xl font-bold mt-8 mb-4 border-b-2 border-green-500 pb-2"
+        >
+          4. Comandos Essenciais (Terminal vs. VS Code)
+        </h2>
+        <p class="text-lg text-gray-300 mb-4">
+          Podes usar os comandos no terminal ou os botões no painel "Source
+          Control" (⛉) do VS Code.
+        </p>
+
+        <!-- Clone -->
+        <h3 class="text-2xl font-semibold text-cyan-400 mt-6 mb-2">
+          git clone
+        </h3>
+        <p class="text-lg text-gray-300 mb-4">
+          Copia um repositório do GitHub para o teu PC. (Só fazes isto na Sessão
+          1).
+        </p>
+        <pre><code class="bash">
+# Copia o link do botão verde "Code" no GitHub
+git clone https://github.com/a-tua-equipa/astro-pi.git
+            </code></pre>
+        <p class="text-lg text-gray-300 mt-2">
+          <strong>No VS Code:</strong> Vais fazer isto manualmente no terminal
+          na primeira vez.
+        </p>
+
+        <!-- Add -->
+        <h3 class="text-2xl font-semibold text-green-400 mt-6 mb-2">git add</h3>
+        <p class="text-lg text-gray-300 mb-4">
+          "Prepara" os ficheiros que alteraste para a próxima "fotografia"
+          (commit). Diz ao Git "quero incluir esta alteração".
+        </p>
+        <pre><code class="bash">
+# Adiciona um ficheiro específico
+git add main.py
+
+# Adiciona todos os ficheiros alterados (usa com cuidado!)
+git add .
+            </code></pre>
+        <p class="text-lg text-gray-300 mt-2">
+          <strong>No VS Code:</strong> Clicar no ícone **"+"** ao lado do
+          ficheiro no painel "Source Control". (Chama-se "Stage Changes").
+        </p>
+
+        <!-- Commit -->
+        <h3 class="text-2xl font-semibold text-green-400 mt-6 mb-2">
+          git commit
+        </h3>
+        <p class="text-lg text-gray-300 mb-4">
+          Tira a "fotografia" (grava) dos ficheiros que preparaste. Exige sempre
+          uma mensagem a descrever O QUE mudou.
+        </p>
+        <pre><code class="bash">
+git commit -m "S1: Estrutura inicial do main.py"
+            </code></pre>
+        <p class="text-lg text-gray-300 mt-2">
+          <strong>No VS Code:</strong> Escrever a mensagem na caixa de texto do
+          painel "Source Control" e clicar no **"✓" (Commit)**.
+        </p>
+
+        <!-- Push -->
+        <h3 class="text-2xl font-semibold text-cyan-400 mt-6 mb-2">git push</h3>
+        <p class="text-lg text-gray-300 mb-4">
+          Envia os teus commits (as tuas "fotografias" guardadas) do teu PC para
+          o GitHub, para a tua equipa ver.
+        </p>
+        <pre><code class="bash">
+git push
+            </code></pre>
+        <p class="text-lg text-gray-300 mt-2">
+          <strong>No VS Code:</strong> Clicar no botão **"Sync Changes"** ou
+          "Push" na barra azul no fundo do ecrã.
+        </p>
+
+        <!-- Status -->
+        <h3 class="text-2xl font-semibold text-yellow-400 mt-6 mb-2">
+          git status
+        </h3>
+        <p class="text-lg text-gray-300 mb-4">
+          O comando mais útil. Mostra-te *exatamente* que ficheiros modificaste
+          e o que não está guardado (commitado).
+        </p>
+        <pre><code class="bash">
+git status
+            </code></pre>
+        <p class="text-lg text-gray-300 mt-2">
+          <strong>No VS Code:</strong> O painel "Source Control" (⛉) é um `git
+          status` visual e em tempo real.
+        </p>
+      </section>
+    </div>
+
+    <!-- Script para ativar o Highlight.js -->
+    <script>
+      hljs.highlightAll();
+    </script>
+  </body>
+</html>
