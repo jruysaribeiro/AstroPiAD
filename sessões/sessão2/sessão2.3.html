@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-PT" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sessão 2.3: Regras da Missão</title>
+    <!-- Carregar Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Tipografia Inter */
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      /* Realce de sintaxe simples */
+      .code-block {
+        background-color: #1e293b; /* slate-800 */
+        color: #e2e8f0; /* slate-200 */
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        font-family: "Courier New", Courier, monospace;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+      .code-inline {
+        background-color: #334155; /* slate-700 */
+        color: #f1f5f9; /* slate-100 */
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.375rem;
+        font-family: "Courier New", Courier, monospace;
+        font-size: 0.9em;
+      }
+      .comment {
+        color: #64748b; /* slate-500 */
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+      };
+    </script>
+  </head>
+  <body class="bg-slate-900 text-slate-300 leading-relaxed">
+    <div class="max-w-4xl mx-auto p-6 md:p-12">
+      <!-- Cabeçalho -->
+      <header class="mb-12">
+        <h1 class="text-4xl md:text-5xl font-black text-white mb-2">
+          Sessão 2 (Parte 3): As Regras da Missão
+        </h1>
+        <p class="text-2xl text-red-400">A "Checklist de Voo" Obrigatória</p>
+      </header>
+
+      <!-- Introdução -->
+      <section class="mb-12 p-6 bg-slate-800 rounded-lg border border-red-500">
+        <h2 class="text-3xl font-bold text-white mb-4">A Missão de Hoje</h2>
+        <p class="text-lg">
+          Temos o nosso plano de engenharia (Sessão 2.1) e o nosso plano de
+          gestão (Sessão 2.2). Agora, a parte mais importante: **as regras de
+          voo.**
+        </p>
+        <p class="mt-2">
+          Programar é metade da batalha. A outra metade é passar na "inspeção"
+          da ESA. Um bug, um ficheiro mal nomeado, ou uma regra quebrada, e o
+          nosso programa é **desclassificado** antes de chegar à ISS. Esta é a
+          nossa *checklist de sucesso*.
+        </p>
+      </section>
+
+      <!-- Secção 1: Entregáveis Obrigatórios -->
+      <section class="mb-12">
+        <h2
+          class="text-3xl font-bold text-white mb-6 border-b border-slate-700 pb-2"
+        >
+          1. Entregáveis Obrigatórios (O Pacote Final)
+        </h2>
+        <p class="mb-6">
+          No final, a nossa equipa tem de entregar um pacote
+          <code class="code-inline">.zip</code>. Este pacote TEM de conter o
+          seguinte [cite: 2 (Astro Pi Mission Space Lab creator guide.pdf, p.
+          10, 16, 25)]:
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Card 1: main.py -->
+          <div class="p-6 bg-slate-800 rounded-lg shadow-lg">
+            <h3 class="text-2xl font-bold text-white mb-3">
+              📄 O Cérebro: <code class="code-inline">main.py</code>
+            </h3>
+            <p>
+              O vosso ficheiro principal de código TEM de se chamar
+              <code class="code-inline">main.py</code> [cite: 2 (Astro Pi
+              Mission Space Lab creator guide.pdf, p. 10)]. É este o ficheiro
+              que a ESA vai executar. Não pode ser
+              <code class="code-inline">projeto_final.py</code> ou
+              <code class="code-inline">versao_2.py</code>.
+            </p>
+          </div>
+
+          <!-- Card 2: result.txt -->
+          <div class="p-6 bg-slate-800 rounded-lg shadow-lg">
+            <h3 class="text-2xl font-bold text-white mb-3">
+              🎯 A Resposta: <code class="code-inline">result.txt</code>
+            </h3>
+            <p class="mb-4">
+              Este é o único ficheiro que a ESA vai usar para vos avaliar. Tem
+              de ser perfeito [cite: 2 (Astro Pi Mission Space Lab creator
+              guide.pdf, p. 16)].
+            </p>
+            <ul class="list-disc list-inside space-y-2">
+              <li>Formato: <strong class="text-white">SÓ o número</strong>.</li>
+              <li>
+                Precisão: Máximo de
+                <strong class="text-white">5 algarismos significativos</strong>.
+              </li>
+              <li>
+                Unidades:
+                <strong class="text-red-400">NÃO incluir "km/s"</strong>.
+              </li>
+            </ul>
+            <div class="code-block mt-4 text-sm">
+              <pre>
+<span class="comment"># EXEMPLO CORRETO (em result.txt)</span>
+7.6712
+
+<span class="comment"># EXEMPLO ERRADO (DESCLASSIFICADO)</span>
+Velocidade: 7.6712 km/s
+</pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Secção 2: Limites da 'Nave' -->
+      <section class="mb-12">
+        <h2
+          class="text-3xl font-bold text-white mb-6 border-b border-slate-700 pb-2"
+        >
+          2. Limites da "Nave" (Restrições de Hardware)
+        </h2>
+        <p class="mb-6">
+          O nosso código não corre num supercomputador. Corre num Raspberry Pi
+          no espaço, com limites estritos.
+        </p>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <!-- Limite 1: Tempo -->
+          <div class="p-6 bg-slate-800 rounded-lg text-center">
+            <div class="text-5xl mb-3">⏱️</div>
+            <h3 class="text-2xl font-bold text-white mb-2">10 Minutos</h3>
+            <p class="text-slate-400">
+              O nosso programa tem de correr e **parar sozinho** (gracefully)
+              antes dos 10 minutos. É obrigatório usar
+              <code class="code-inline">datetime.timedelta</code> [cite: 2
+              (Astro Pi Mission Space Lab creator guide.pdf, p. 17)].
+            </p>
+          </div>
+
+          <!-- Limite 2: Dados -->
+          <div class="p-6 bg-slate-800 rounded-lg text-center">
+            <div class="text-5xl mb-3">💾</div>
+            <h3 class="text-2xl font-bold text-white mb-2">250 MB</h3>
+            <p class="text-slate-400">
+              É o tamanho **total** de TODOS os ficheiros que o nosso programa
+              pode criar (logs, imagens, CSVs, etc.). Temos de gerir o nosso
+              "disco" [cite: 1 (Astro Pi Mission Space Lab Class Plan - Google
+              Docs.pdf, p. 8)].
+            </p>
+          </div>
+
+          <!-- Limite 3: Imagens -->
+          <div class="p-6 bg-slate-800 rounded-lg text-center">
+            <div class="text-5xl mb-3">📸</div>
+            <h3 class="text-2xl font-bold text-white mb-2">42 Imagens</h3>
+            <p class="text-slate-400">
+              É o número máximo de fotos que podemos guardar [cite: 1 (Astro Pi
+              Mission Space Lab Class Plan - Google Docs.pdf, p. 8), 2 (Astro Pi
+              Mission Space Lab creator guide.pdf, p. 23)]. Não podemos tirar
+              1000 fotos. Temos de ser eficientes e calcular à medida que
+              avançamos.
+            </p>
+          </div>
+        </div>
+        <p class="text-center mt-4 text-sm text-slate-500">
+          (O limite do ficheiro <code class="code-inline">.zip</code> final que
+          submetemos é de 3MB, ou 7MB se usarmos um modelo de Machine Learning
+          [cite: 2 (Astro Pi Mission Space Lab creator guide.pdf, p. 25)]).
+        </p>
+      </section>
+
+      <!-- Secção 3: Manual de Voo (Do's & Don'ts) -->
+      <section class="mb-12">
+        <h2
+          class="text-3xl font-bold text-white mb-6 border-b border-slate-700 pb-2"
+        >
+          3. Manual de Voo (Do's & Don'ts)
+        </h2>
+        <p class="mb-6">
+          Estas são as regras que causam mais desclassificações. (Baseado na
+          lista de "Erros Comuns" [cite: 2 (Astro Pi Mission Space Lab creator
+          guide.pdf, p. 23-24)]).
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Coluna dos DON'Ts -->
+          <div class="p-6 bg-red-900/20 border border-red-500 rounded-lg">
+            <h3 class="text-3xl font-bold text-red-400 mb-4">
+              ❌ O QUE NÃO FAZER ❌
+            </h3>
+            <ul class="list-none space-y-4">
+              <li>
+                <strong
+                  >NÃO USAR <code class="code-inline">input()</code></strong
+                ><br />O programa corre sozinho. Ninguém pode "escrever" nada no
+                terminal.
+              </li>
+              <li>
+                <strong>NÃO USAR A MATRIZ DE LEDs</strong><br />Usar
+                <code class="code-inline">sense.show_message()</code> é ótimo
+                para *testar*, mas no código final, gasta tempo de
+                processamento. Deve ser comentado.
+              </li>
+              <li>
+                <strong>NÃO USAR CAMINHOS ABSOLUTOS</strong><br />Esqueçam
+                <code class="code-inline">"C:\Users\..."</code>. O código corre
+                em Linux. Se o caminho falhar, o programa falha.
+              </li>
+              <li>
+                <strong>NÃO USAR NETWORKING</strong><br />Qualquer biblioteca
+                que tente aceder à internet (como
+                <code class="code-inline">requests</code>) é proibida e será
+                bloqueada.
+              </li>
+              <li>
+                <strong>NÃO USAR BIBLIOTECAS PROIBIDAS</strong><br />Usem apenas
+                a lista de bibliotecas permitidas (ex:
+                <code class="code-inline">os</code>,
+                <code class="code-inline">sys</code> são proibidas).
+              </li>
+            </ul>
+          </div>
+
+          <!-- Coluna dos DO's -->
+          <div class="p-6 bg-green-900/20 border border-green-500 rounded-lg">
+            <h3 class="text-3xl font-bold text-green-400 mb-4">
+              ✅ O QUE FAZER ✅
+            </h3>
+            <ul class="list-none space-y-4">
+              <li>
+                <strong>USAR <code class="code-inline">pathlib</code></strong
+                ><br />Para gerir caminhos de ficheiros de forma segura. É a
+                solução para o problema dos "caminhos absolutos".
+              </li>
+              <li>
+                <strong
+                  >USAR <code class="code-inline">try...except</code></strong
+                ><br />O que acontece se o sensor falhar ou a foto ficar
+                corrompida? O programa não pode "crashar". Tem de registar o
+                erro e continuar.
+              </li>
+              <li>
+                <strong>USAR <code class="code-inline">logzero</code></strong
+                ><br />Criem um log! Se o programa falhar na ISS, os logs são a
+                *única* forma de sabermos o que aconteceu.
+              </li>
+              <li>
+                <strong>USAR COMENTÁRIOS</strong><br />Um código bem documentado
+                é um requisito. Expliquem a vossa matemática e a vossa lógica.
+              </li>
+              <li>
+                <strong>TESTAR TUDO NO REPLAY TOOL</strong><br />O Replay Tool é
+                o vosso simulador de voo. Se funcionar lá, é provável que
+                funcione na ISS.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- *** NOVA SECÇÃO DE LINKS ADICIONADA AQUI *** -->
+      <section class="mb-12">
+        <h2
+          class="text-3xl font-bold text-white mb-6 border-b border-slate-700 pb-2"
+        >
+          4. Links de Documentação (A Nossa "Caixa de Ferramentas")
+        </h2>
+        <p class="mb-6">
+          Para programar os nossos módulos, vamos precisar de consultar a
+          documentação oficial (as "APIs"). Estes são os nossos manuais de
+          instruções mais importantes.
+        </p>
+
+        <div
+          class="grid md:grid-cols-2 gap-x-8 gap-y-4 p-6 bg-slate-800 rounded-lg"
+        >
+          <!-- Links Essenciais -->
+          <div>
+            <h4 class="text-xl font-bold text-white mb-3">
+              Bibliotecas Principais (Heróis)
+            </h4>
+            <ul class="list-disc list-inside space-y-2">
+              <li>
+                <a
+                  href="https://rhodesmill.org/skyfield/"
+                  target="_blank"
+                  class="text-cyan-400 hover:text-cyan-300 underline underline-offset-2"
+                  >astro_pi_orbit (Skyfield)</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://raspberrypifoundation.github.io/picamera-zero/recipes/"
+                  target="_blank"
+                  class="text-cyan-400 hover:text-cyan-300 underline underline-offset-2"
+                  >picamzero (Receitas)</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://python-sense-hat.readthedocs.io/en/latest/api.html"
+                  target="_blank"
+                  class="text-cyan-400 hover:text-cyan-300 underline underline-offset-2"
+                  >sense_hat (API)</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Links de Utilidades -->
+          <div>
+            <h4 class="text-xl font-bold text-white mb-3">
+              Bibliotecas de Suporte (Ajudantes)
+            </h4>
+            <ul class="list-disc list-inside space-y-2">
+              <li>
+                <a
+                  href="https://logzero.readthedocs.io/en/latest/"
+                  target="_blank"
+                  class="text-cyan-400 hover:text-cyan-300 underline underline-offset-2"
+                  >logzero</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://docs.python.org/3/library/pathlib.html"
+                  target="_blank"
+                  class="text-cyan-400 hover:text-cyan-300 underline underline-offset-2"
+                  >pathlib (Doc. Python)</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://numpy.org/doc/stable/"
+                  target="_blank"
+                  class="text-cyan-400 hover:text-cyan-300 underline underline-offset-2"
+                  >Numpy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html"
+                  target="_blank"
+                  class="text-cyan-400 hover:text-cyan-300 underline underline-offset-2"
+                  >OpenCV (Plano B)</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://pillow.readthedocs.io/en/stable/"
+                  target="_blank"
+                  class="text-cyan-400 hover:text-cyan-300 underline underline-offset-2"
+                  >Pillow (PIL)</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Conclusão (Secção renumerada de 4 para 5) -->
+      <section>
+        <h2
+          class="text-3xl font-bold text-white mb-6 border-b border-slate-700 pb-2"
+        >
+          5. A Nossa Missão (Resto da Sessão)
+        </h2>
+        <p class="text-lg">
+          Agora que sabemos as regras, vamos começar a programar a sério.
+        </p>
+        <p class="mt-4 text-xl font-bold text-yellow-300 text-center">
+          Vamos voltar ao Git, criar os nossos *feature branches* e começar a
+          "bater código" nos nossos módulos!
+        </p>
+      </section>
+    </div>
+  </body>
+</html>

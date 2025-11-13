@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-PT" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sessão 2: O Plano de Ataque</title>
+    <!-- Carregar Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Tipografia Inter */
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      /* Realce de sintaxe simples */
+      .code-block {
+        background-color: #1e293b; /* slate-800 */
+        color: #e2e8f0; /* slate-200 */
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        font-family: "Courier New", Courier, monospace;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+      .code-inline {
+        background-color: #334155; /* slate-700 */
+        color: #f1f5f9; /* slate-100 */
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.375rem;
+        font-family: "Courier New", Courier, monospace;
+        font-size: 0.9em;
+      }
+      .comment {
+        color: #64748b; /* slate-500 */
+      }
+      .keyword {
+        color: #7dd3fc; /* sky-400 */
+      }
+      .function {
+        color: #a5b4fc; /* indigo-300 */
+      }
+      .string {
+        color: #fde047; /* yellow-300 */
+      }
+      .number {
+        color: #86efac; /* green-300 */
+      }
+
+      /* --- NOVO CSS PARA O EFEITO DE SPOILER --- */
+      .spoiler {
+        filter: blur(5px); /* Desfoca o texto */
+        cursor: pointer; /* Mostra uma mãozinha */
+        transition: filter 0.3s ease-in-out;
+        /* Garante que o texto desfocado não é selecionável */
+        user-select: none;
+      }
+      .spoiler:hover {
+        filter: blur(3px); /* Dica ao passar o rato */
+      }
+      .spoiler.revealed {
+        filter: blur(0px); /* Remove o desfoque */
+        cursor: default;
+        user-select: auto; /* Texto volta a ser selecionável */
+      }
+      /* --- FIM DO NOVO CSS --- */
+    </style>
+    <!-- Configuração do Tailwind Dark Mode -->
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+      };
+    </script>
+  </head>
+  <body class="bg-slate-900 text-slate-300 leading-relaxed">
+    <div class="max-w-4xl mx-auto p-6 md:p-12">
+      <!-- Cabeçalho -->
+      <header class="mb-12">
+        <h1 class="text-4xl md:text-5xl font-black text-white mb-2">
+          Sessão 2: O Brainstorming de Engenharia
+        </h1>
+        <p class="text-2xl text-indigo-300">O nosso Plano de Ataque</p>
+      </header>
+
+      <!-- Introdução -->
+      <section
+        class="mb-12 p-6 bg-slate-800 rounded-lg border border-indigo-500"
+      >
+        <h2 class="text-3xl font-bold text-white mb-4">A Missão de Hoje</h2>
+        <p class="text-lg">
+          Na Sessão 1, configurámos o nosso ambiente (VS Code + Git). Hoje,
+          deixamos de ser "coders" e passamos a ser **engenheiros de software**.
+        </p>
+        <p class="mt-2">
+          O nosso objetivo não é escrever código. É analisar o problema,
+          analisar as nossas ferramentas, debater soluções e **desenhar a
+          arquitetura** do nosso programa. O que decidirmos hoje vai guiar o
+          nosso trabalho para as próximas 7 sessões.
+        </p>
+      </section>
+
+      <!-- Secção 1: Caixa de Ferramentas -->
+      <section class="mb-12">
+        <h2
+          class="text-3xl font-bold text-white mb-6 border-b border-slate-700 pb-2"
+        >
+          1. A Nossa Caixa de Ferramentas
+        </h2>
+        <p class="mb-6">
+          Temos 3 bibliotecas Python principais que nos dão os "sentidos" na
+          ISS. Conhecer as nossas ferramentas é o primeiro passo.
+        </p>
+
+        <div class="space-y-6">
+          <!-- Ferramenta 1: astro_pi_orbit -->
+          <div class="p-6 bg-slate-800 rounded-lg">
+            <h3 class="text-2xl font-bold text-white mb-2">
+              Biblioteca: <code class="code-inline">astro_pi_orbit</code>
+            </h3>
+            <p class="text-sky-300 mb-4 font-medium">
+              Função: O nosso "GPS" Orbital. Dá-nos a posição exata da ISS.
+            </p>
+            <div class="code-block">
+              <pre>
+<span class="keyword">from</span> astro_pi_orbit <span class="keyword">import</span> ISS
+
+iss = <span class="function">ISS</span>()
+coordenadas = iss.<span class="function">coordinates</span>()
+
+<span class="comment"># O que podemos obter:</span>
+lat = coordenadas.latitude.degrees
+lon = coordenadas.longitude.degrees
+alt = coordenadas.elevation.km <span class="comment"># <-- Altitude em KM!</span>
+</pre>
+            </div>
+          </div>
+
+          <!-- Ferramenta 2: picamzero -->
+          <div class="p-6 bg-slate-800 rounded-lg">
+            <h3 class="text-2xl font-bold text-white mb-2">
+              Biblioteca: <code class="code-inline">picamzero</code>
+            </h3>
+            <p class="text-sky-300 mb-4 font-medium">
+              Função: Os nossos "olhos". A câmara de alta qualidade virada para
+              a Terra.
+            </p>
+            <div class="code-block">
+              <pre>
+<span class="keyword">from</span> picamzero <span class="keyword">import</span> Camera
+<span class="keyword">from</span> time <span class="keyword">import</span> sleep
+
+cam = <span class="function">Camera</span>()
+cam.<span class="function">take_photo</span>(<span class="string">"foto_teste.jpg"</span>)
+
+<span class="comment"># E o mais importante para nós:</span>
+cam.<span class="function">capture_sequence</span>(
+    <span class="string">"imagem_%02d.jpg"</span>, 
+    num_images=<span class="number">5</span>, 
+    interval=<span class="number">10</span>
+)
+</pre>
+            </div>
+          </div>
+
+          <!-- Ferramenta 3: sense_hat -->
+          <div class="p-6 bg-slate-800 rounded-lg">
+            <h3 class="text-2xl font-bold text-white mb-2">
+              Biblioteca: <code class="code-inline">sense_hat</code>
+            </h3>
+            <p class="text-sky-300 mb-4 font-medium">
+              Função: Os nossos sensores "internos". Mede o ambiente *dentro* da
+              ISS.
+            </p>
+            <div class="code-block">
+              <pre>
+<span class="keyword">from</span> sense_hat <span class="keyword">import</span> SenseHAT
+sense = <span class="function">SenseHAT</span>()
+
+<span class="comment"># Sensores de Movimento (IMU)</span>
+accel = sense.accelerometer_raw
+gyro = sense.gyroscope_raw
+mag = sense.magnetometer_raw
+
+<span class="comment"># Sensores Ambientais</span>
+temp = sense.temperature
+hum = sense.humidity
+press = sense.pressure
+</pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Secção 2: O Debate -->
+      <section class="mb-12">
+        <h2
+          class="text-3xl font-bold text-white mb-6 border-b border-slate-700 pb-2"
+        >
+          2. O Brainstorming: Como Medir Velocidade?
+        </h2>
+        <p class="mb-6">
+          Com estas ferramentas, como podemos calcular a velocidade? Vamos
+          debater as ideias.
+        </p>
+
+        <ul class="space-y-4">
+          <li class="p-4 bg-slate-800 rounded-lg">
+            <h4 class="text-xl font-bold text-white">
+              Método 1: O Acelerómetro (<code class="code-inline"
+                >sense.accelerometer</code
+              >)
+            </h4>
+            <p>
+              <strong class="text-sky-300">Ideia:</strong> Velocidade =
+              Aceleração x Tempo. Podemos medir a aceleração?
+            </p>
+            <!-- Spoiler adicionado -->
+            <div class="spoiler">
+              <p>
+                <strong class="text-red-400">Problema:</strong> O acelerómetro
+                mede a *mudança* de velocidade. A ISS orbita a uma velocidade
+                (maioritariamente) *constante*. Não está a "acelerar" no sentido
+                linear. Além disso, mede a aceleração em relação à ISS, não à
+                Terra.
+              </p>
+              <p>
+                <strong class="text-white"
+                  >Viabilidade:
+                  <span class="font-black text-red-500">MUITO BAIXA</span
+                  >.</strong
+                >
+                (Ótimo debate de física, mas mau plano de engenharia).
+              </p>
+            </div>
+          </li>
+          <li class="p-4 bg-slate-800 rounded-lg">
+            <h4 class="text-xl font-bold text-white">
+              Método 2: O GPS (Plano A) (<code class="code-inline"
+                >astro_pi_orbit</code
+              >)
+            </h4>
+            <p>
+              <strong class="text-sky-300">Ideia:</strong> Usar
+              <code class="code-inline">iss.coordinates()</code>. Pegar Ponto A
+              (Lat/Lon), esperar 10 segundos, pegar Ponto B (Lat/Lon). Calcular
+              a distância entre A e B.
+            </p>
+            <!-- Spoiler adicionado -->
+            <div class="spoiler">
+              <p>
+                <strong class="text-yellow-300">Desafio:</strong> A Terra é uma
+                esfera. Não podemos usar Pitágoras. Precisamos de uma fórmula
+                que calcule distâncias em esferas.
+              </p>
+              <p>
+                <strong class="text-green-400">Solução:</strong> A **Fórmula de
+                Haversine**. (Podemos pesquisar e implementar isto em Python).
+              </p>
+              <p>
+                <strong class="text-white"
+                  >Viabilidade:
+                  <span class="font-black text-green-500">ALTA</span>.</strong
+                >
+                (O nosso Plano A).
+              </p>
+            </div>
+          </li>
+          <li class="p-4 bg-slate-800 rounded-lg">
+            <h4 class="text-xl font-bold text-white">
+              Método 3: A Câmara (Plano B) (<code class="code-inline"
+                >picamzero</code
+              >)
+            </h4>
+            <p>
+              <strong class="text-sky-300">Ideia:</strong> Tirar Foto A. Esperar
+              10s. Tirar Foto B. Ver o quanto o chão "andou" em píxeis.
+              Converter píxeis para quilómetros.
+            </p>
+            <!-- Spoiler adicionado -->
+            <div class="spoiler">
+              <p>
+                <strong class="text-yellow-300">Desafio:</strong> Como
+                convertemos píxeis em km? Precisamos de saber a "escala" da
+                foto. A escala depende da altitude!
+              </p>
+              <p>
+                <strong class="text-green-400">Solução:</strong> Usar
+                <code class="code-inline">iss.coordinates().elevation.km</code>!
+                Com a altitude e o "Field of View" (FOV) da câmara, podemos usar
+                trigonometria para encontrar a GSD (Ground Sample Distance), ou
+                seja, quantos "km por píxel" a nossa foto tem. Depois, usamos
+                <code class="code-inline">OpenCV</code> ou
+                <code class="code-inline">Pillow</code> para medir o
+                deslocamento em píxeis.
+              </p>
+              <p>
+                <strong class="text-white"
+                  >Viabilidade:
+                  <span class="font-black text-yellow-500"
+                    >ALTA (Mas Muito Difícil)</span
+                  >.</strong
+                >
+                (O nosso Plano B).
+              </p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Secção 3: A Física -->
+      <section class="mb-12">
+        <h2
+          class="text-3xl font-bold text-white mb-6 border-b border-slate-700 pb-2"
+        >
+          3. A Física: A Velocidade Orbital "Teórica"
+        </h2>
+        <p class="mb-6">
+          OK, mas qual é a resposta "certa"? Qual é a velocidade que *devíamos*
+          estar a medir? A física dá-nos uma "resposta-gabarito".
+        </p>
+        <p class="mb-4">
+          Para uma órbita circular estável (como o "Canhão de Newton" ou a "Bola
+          no Copo"), a velocidade orbital ($v$) depende de 3 coisas:
+        </p>
+
+        <div class="code-block text-center text-3xl mb-6">
+          v = &radic;( (G * M) / r )
+        </div>
+
+        <ul class="space-y-4">
+          <li>
+            <strong class="text-white">v</strong> = A nossa Velocidade (o que
+            queremos saber).
+          </li>
+          <li>
+            <strong class="text-white">G</strong> = Constante Gravitacional. É
+            um número fixo, não muda.
+          </li>
+          <li>
+            <strong class="text-white">M</strong> = Massa da Terra. Também é
+            fixa.
+          </li>
+          <li>
+            <strong class="text-red-400">r</strong> = Raio da Órbita. Este é o
+            ponto-chave!
+          </li>
+        </ul>
+
+        <h3 class="text-2xl font-bold text-white mt-8 mb-4">
+          A Ligação à Nossa "Caixa de Ferramentas"
+        </h3>
+        <p class="mb-4">
+          O "Raio da Órbita" ($r$) não é a altitude. É a distância desde o
+          **centro da Terra**.
+        </p>
+
+        <div class="code-block">r = (Raio da Terra) + (Altitude da ISS)</div>
+
+        <p class="mt-4">
+          E como sabemos a altitude da ISS? A nossa ferramenta
+          <code class="code-inline">astro_pi_orbit</code> diz-nos!
+        </p>
+
+        <!-- Spoiler adicionado ao cálculo de exemplo -->
+        <div class="p-6 bg-slate-800 rounded-lg mt-6 spoiler">
+          <h4 class="text-xl font-bold text-white mb-2">Cálculo de Exemplo:</h4>
+          <ul class="list-disc list-inside">
+            <li>Raio da Terra (R): ~<span class="number">6.371</span> km</li>
+            <li>
+              Altitude da ISS (h): ~<span class="number">408</span> km (que
+              obtemos de <code class="code-inline">elevation.km</code>)
+            </li>
+            <li>
+              Raio da Órbita (r): <span class="number">6371</span> +
+              <span class="number">408</span> =
+              <span class="number">6.779</span> km (ou
+              <span class="number">6.779.000</span> m)
+            </li>
+          </ul>
+          <p class="mt-4 font-bold text-2xl text-center text-green-400">
+            Velocidade Teórica &approx; 7.67 km/s
+          </p>
+        </div>
+      </section>
+
+      <!-- Secção 4: Decisão -->
+      <section>
+        <h2
+          class="text-3xl font-bold text-white mb-6 border-b border-slate-700 pb-2"
+        >
+          4. A Nossa Decisão de Engenharia
+        </h2>
+        <p class="text-lg mb-4">
+          A missão *não* é calcular a fórmula da física (isso era fácil). A
+          missão é **MEDIR** a velocidade usando os sensores e ver se a nossa
+          medição bate certo com a teoria.
+        </p>
+
+        <h3 class="text-2xl font-bold text-white mt-8 mb-4">Tarefa de Hoje:</h3>
+        <ol class="list-decimal list-inside space-y-2 text-lg">
+          <li>
+            <strong class="text-white">Debater:</strong> Em equipa, vamos
+            escolher um plano.
+            <ul class="list-disc list-inside ml-6 text-base">
+              <li>
+                **Plano A (GPS/Haversine):** Mais seguro, focado em matemática
+                pura.
+              </li>
+              <li>
+                **Plano B (Câmara/OpenCV):** Mais "fixe", muito mais difícil,
+                focado em visão computacional.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong class="text-white">Documentar:</strong> Abrir o ficheiro
+            <code class="code-inline">README.md</code> no VS Code.
+          </li>
+          <li>
+            <strong class="text-white">Escrever:</strong> Escrever o nosso plano
+            de ataque, o método que escolhemos e o pseudocódigo básico.
+          </li>
+          <li>
+            <strong class="text-white">Submeter:</strong> Usar o painel "Source
+            Control" do VS Code para fazer
+            <code class="code-inline">commit</code> e
+            <code class="code-inline">push</code> do nosso plano.
+            <div class="code-block text-sm mt-2">
+              git add README.md<br />
+              git commit -m "S2: Definido o plano de ataque e pseudocódigo"
+            </div>
+          </li>
+        </ol>
+      </section>
+    </div>
+
+    <!-- NOVO SCRIPT para o efeito de spoiler -->
+    <script>
+      // Espera que o conteúdo da página esteja carregado
+      document.addEventListener("DOMContentLoaded", () => {
+        // Encontra todos os elementos com a classe 'spoiler'
+        const spoilers = document.querySelectorAll(".spoiler");
+
+        spoilers.forEach((spoiler) => {
+          // Adiciona um 'ouvinte' de clique a cada um
+          spoiler.addEventListener(
+            "click",
+            () => {
+              // Quando clicado, adiciona a classe 'revealed'
+              spoiler.classList.add("revealed");
+            },
+            { once: true }
+          ); // {once: true} faz com que só funcione uma vez
+        });
+      });
+    </script>
+    <!-- FIM DO NOVO SCRIPT -->
+  </body>
+</html>
