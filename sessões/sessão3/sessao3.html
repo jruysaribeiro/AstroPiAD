@@ -21,6 +21,13 @@
         font-family: "Courier New", Courier, monospace;
         white-space: pre-wrap;
         word-wrap: break-word;
+        overflow-x: auto;
+        max-width: 100%;
+      }
+      .code-block pre {
+        margin: 0;
+        white-space: pre-wrap;
+        word-break: break-word;
       }
       .code-inline {
         background-color: #334155; /* slate-700 */
@@ -116,8 +123,8 @@
         </h2>
         <p class="mb-6">
           O <strong>Merge</strong> é o ato de fundir dois históricos de
-          trabalho. Imagina que queres testar a tua matemática com o GPS que o
-          teu colega acabou de programar.
+          trabalho. Imagina que queres testar a tua matemática com o cálculo da
+          órbita que o teu colega acabou de programar.
         </p>
 
         <div class="grid md:grid-cols-2 gap-6">
@@ -125,18 +132,19 @@
             <h3 class="text-xl font-bold text-white mb-4">O Cenário</h3>
             <p class="mb-4">
               Tu estás no branch
-              <code class="code-inline text-green-400">feature/matematica</code
-              >.
+              <code class="code-inline text-green-400">origin/mat</code>.
             </p>
             <p class="mb-4">
               O teu colega fez push do branch
-              <code class="code-inline text-blue-400">feature/gps</code> para o
-              GitHub.
+              <code class="code-inline text-blue-400">origin/órbita</code> para
+              o GitHub.
             </p>
             <p>Tu queres o código dele no teu branch.</p>
           </div>
 
-          <div class="p-6 bg-slate-800 rounded-lg border border-slate-600">
+          <div
+            class="p-6 bg-slate-800 rounded-lg border border-slate-600 overflow-hidden"
+          >
             <h3 class="text-xl font-bold text-white mb-4">
               O Workflow (Terminal)
             </h3>
@@ -146,12 +154,12 @@
 git add .
 git commit -m "WIP: A salvar antes do merge"
 
-<span class="comment"># 2. Ir buscar as novidades à "Nuvem" (GitHub)</span>
-<span class="comment"># (Isto atualiza a tua lista de branches remotos)</span>
+<span class="comment"># 2. Ir buscar as novidades do GitHub</span>
+<span class="comment"># (Atualiza a lista de branches remotos)</span>
 git fetch origin
 
 <span class="comment"># 3. Fundir o branch do colega no TEU</span>
-git merge origin/feature/gps
+git merge origin/órbita
 </pre>
             </div>
           </div>
