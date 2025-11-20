@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-PT" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sessão 3: Integração e Módulos</title>
+    <!-- Carregar Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Tipografia Inter */
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      /* Realce de sintaxe simples */
+      .code-block {
+        background-color: #1e293b; /* slate-800 */
+        color: #e2e8f0; /* slate-200 */
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        font-family: "Courier New", Courier, monospace;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+      .code-inline {
+        background-color: #334155; /* slate-700 */
+        color: #f1f5f9; /* slate-100 */
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.375rem;
+        font-family: "Courier New", Courier, monospace;
+        font-size: 0.9em;
+      }
+      .comment {
+        color: #64748b; /* slate-500 */
+      }
+      .keyword {
+        color: #7dd3fc; /* sky-400 */
+      }
+      .function {
+        color: #a5b4fc; /* indigo-300 */
+      }
+      .string {
+        color: #fde047; /* yellow-300 */
+      }
+      .number {
+        color: #86efac; /* green-300 */
+      }
+
+      /* CSS para o efeito de Spoiler */
+      .spoiler {
+        filter: blur(5px);
+        cursor: pointer;
+        transition: filter 0.3s ease-in-out;
+        user-select: none;
+      }
+      .spoiler:hover {
+        filter: blur(3px);
+      }
+      .spoiler.revealed {
+        filter: blur(0px);
+        cursor: default;
+        user-select: auto;
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+      };
+    </script>
+  </head>
+  <body class="bg-slate-900 text-slate-300 leading-relaxed">
+    <div class="max-w-4xl mx-auto p-6 md:p-12">
+      <!-- Cabeçalho -->
+      <header class="mb-12">
+        <h1 class="text-4xl md:text-5xl font-black text-white mb-2">
+          Sessão 3: Integração e Módulos
+        </h1>
+        <p class="text-2xl text-purple-400">Juntar as Peças do Puzzle</p>
+      </header>
+
+      <!-- Introdução -->
+      <section
+        class="mb-12 p-6 bg-slate-800 rounded-lg border border-purple-500"
+      >
+        <h2 class="text-3xl font-bold text-white mb-4">O Objetivo de Hoje</h2>
+        <p class="text-lg">
+          Até agora, cada um trabalhou na sua ilha (o seu <em>branch</em>). O
+          Programador A fez a matemática, o Programador B fez o GPS, etc.
+        </p>
+        <p class="mt-2">
+          Mas um projeto de engenharia só funciona quando as peças se encaixam.
+          Hoje vamos aprender a:
+        </p>
+        <ul class="list-disc list-inside mt-2 space-y-1 text-purple-200">
+          <li>
+            <strong>Git Merge:</strong> Como trazer o código dos colegas para o
+            vosso computador.
+          </li>
+          <li>
+            <strong>Módulos Python:</strong> Como usar funções que estão noutros
+            ficheiros.
+          </li>
+          <li>
+            <strong>Revisão Geral:</strong> Garantir que dominamos todas as
+            ferramentas do Python para a missão.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Secção 1: Git Merge -->
+      <section class="mb-12">
+        <h2
+          class="text-3xl font-bold text-white mb-6 border-b border-slate-700 pb-2"
+        >
+          1. Git Merge: Juntar Realidades
+        </h2>
+        <p class="mb-6">
+          O <strong>Merge</strong> é o ato de fundir dois históricos de
+          trabalho. Imagina que queres testar a tua matemática com o GPS que o
+          teu colega acabou de programar.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="p-6 bg-slate-800 rounded-lg">
+            <h3 class="text-xl font-bold text-white mb-4">O Cenário</h3>
+            <p class="mb-4">
+              Tu estás no branch
+              <code class="code-inline text-green-400">feature/matematica</code
+              >.
+            </p>
+            <p class="mb-4">
+              O teu colega fez push do branch
+              <code class="code-inline text-blue-400">feature/gps</code> para o
+              GitHub.
+            </p>
+            <p>Tu queres o código dele no teu branch.</p>
+          </div>
+
+          <div class="p-6 bg-slate-800 rounded-lg border border-slate-600">
+            <h3 class="text-xl font-bold text-white mb-4">
+              O Workflow (Terminal)
+            </h3>
+            <div class="code-block text-sm">
+              <pre>
+<span class="comment"># 1. Garantir que o teu trabalho está salvo</span>
+git add .
+git commit -m "WIP: A salvar antes do merge"
+
+<span class="comment"># 2. Ir buscar as novidades à "Nuvem" (GitHub)</span>
+<span class="comment"># (Isto atualiza a tua lista de branches remotos)</span>
+git fetch origin
+
+<span class="comment"># 3. Fundir o branch do colega no TEU</span>
+git merge origin/feature/gps
+</pre>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="mt-6 p-4 bg-yellow-900/20 border border-yellow-600 rounded-lg"
+        >
+          <h4 class="text-lg font-bold text-yellow-400 mb-2">
+            ⚠️ Conflitos de Merge
+          </h4>
+          <p>
+            Se ambos mexeram na <strong>mesma linha</strong> do
+            <strong>mesmo ficheiro</strong>, o Git entra em pânico. Chama-se um
+            "Conflito".
+          </p>
+          <p class="mt-2">
+            Se isso acontecer: O VS Code vai destacar o conflito a vermelho.
+            Tens de escolher que código queres manter ("Accept Current Change"
+            ou "Accept Incoming Change").
+          </p>
+        </div>
+      </section>
+
+      <!-- Secção 2: Módulos Python -->
+      <section class="mb-12">
+        <h2
+          class="text-3xl font-bold text-white mb-6 border-b border-slate-700 pb-2"
+        >
+          2. Python Modular (Import & Export)
+        </h2>
+        <p class="mb-6">
+          Não queremos um ficheiro <code class="code-inline">main.py</code> com
+          500 linhas. Queremos ficheiros pequenos e organizados. Em Python,
+          qualquer ficheiro <code class="code-inline">.py</code> é um módulo que
+          pode ser importado.
+        </p>
+
+        <!-- Exemplo Prático -->
+        <div class="space-y-6">
+          <!-- Ficheiro 1: A Ferramenta -->
+          <div class="spoiler">
+            <p class="mb-2 text-sm text-slate-400 uppercase tracking-wide">
+              Ficheiro: <code class="text-white">utilidades.py</code> (Clica
+              para ver)
+            </p>
+            <div class="code-block">
+              <pre>
+<span class="comment"># Este ficheiro só tem definições de funções.</span>
+<span class="comment"># Não corre nada sozinho, a menos que o testemos.</span>
+
+<span class="keyword">def</span> <span class="function">calcular_soma</span>(a, b):
+    <span class="keyword">return</span> a + b
+
+<span class="comment"># O bloco mágico!</span>
+<span class="comment"># Este código SÓ corre se executares "python utilidades.py"</span>
+<span class="comment"># Se fizeres "import utilidades", isto é ignorado.</span>
+<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
+    print(<span class="string">"A testar a soma: 2+2="</span>, calcular_soma(2,2))
+</pre>
+            </div>
+          </div>
+
+          <!-- Ficheiro 2: O Programa Principal -->
+          <div class="spoiler">
+            <p class="mb-2 text-sm text-slate-400 uppercase tracking-wide">
+              Ficheiro: <code class="text-white">main.py</code> (Clica para ver)
+            </p>
+            <div class="code-block">
+              <pre>
+<span class="comment"># Opção 1: Importar o ficheiro todo</span>
+<span class="keyword">import</span> utilidades
+
+resultado = utilidades.<span class="function">calcular_soma</span>(10, 5)
+
+
+<span class="comment"># Opção 2: Importar só a função (Mais limpo)</span>
+<span class="keyword">from</span> utilidades <span class="keyword">import</span> calcular_soma
+
+resultado_2 = <span class="function">calcular_soma</span>(10, 5)
+
+print(f<span class="string">"O resultado é {resultado_2}"</span>)
+</pre>
+            </div>
+          </div>
+        </div>
+        <p class="mt-4 text-slate-400 text-sm">
+          <strong>Dica Profissional:</strong> Organizem o vosso projeto assim:
+          <code class="code-inline">main.py</code> controla o fluxo,
+          <code class="code-inline">gps.py</code> trata dos dados,
+          <code class="code-inline">log.py</code> trata dos ficheiros.
+        </p>
+      </section>
+
+      <!-- Secção 3: Checklist de Python (O Plano Original) -->
+      <section class="mb-12">
+        <h2
+          class="text-3xl font-bold text-white mb-6 border-b border-slate-700 pb-2"
+        >
+          3. Checklist de Competências Python
+        </h2>
+        <p class="mb-6">
+          De acordo com o plano de missão da ESA, estas são as ferramentas que
+          temos de ter no nosso cinto de utilidades para terminar o projeto.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Card 1: Básico -->
+          <div class="p-6 bg-slate-800 rounded-lg">
+            <h3 class="text-xl font-bold text-white mb-3">🛠️ Fundamentos</h3>
+            <ul class="list-disc list-inside space-y-2 text-slate-300">
+              <li>
+                <strong class="text-cyan-400">Variáveis:</strong> Guardar dados
+                (<code class="code-inline">velocidade = 7.67</code>).
+              </li>
+              <li>
+                <strong class="text-cyan-400">Tipos de Dados:</strong> Saber a
+                diferença entre <code class="code-inline">int</code>,
+                <code class="code-inline">float</code> e
+                <code class="code-inline">string</code>.
+              </li>
+              <li>
+                <strong class="text-cyan-400">Listas:</strong> Guardar várias
+                fotos ou coordenadas (<code class="code-inline">fotos = []</code
+                >).
+              </li>
+              <li>
+                <strong class="text-cyan-400">F-Strings:</strong> Formatar texto
+                (<code class="code-inline">f"Velocidade: {v}"</code>).
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card 2: Controlo -->
+          <div class="p-6 bg-slate-800 rounded-lg">
+            <h3 class="text-xl font-bold text-white mb-3">
+              🎛️ Controlo de Fluxo
+            </h3>
+            <ul class="list-disc list-inside space-y-2 text-slate-300">
+              <li>
+                <strong class="text-cyan-400">Loops (For/While):</strong>
+                Repetir ações (tirar 42 fotos).
+              </li>
+              <li>
+                <strong class="text-cyan-400">Condicionais (If/Else):</strong>
+                Tomar decisões ("Se for noite, não tirar foto").
+              </li>
+              <li>
+                <strong class="text-cyan-400">Funções:</strong> Criar blocos de
+                código reutilizáveis.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card 3: Ficheiros e Tempo -->
+          <div class="p-6 bg-slate-800 rounded-lg">
+            <h3 class="text-xl font-bold text-white mb-3">
+              ⏱️ Ficheiros & Tempo
+            </h3>
+            <ul class="list-disc list-inside space-y-2 text-slate-300">
+              <li>
+                <strong class="text-cyan-400">with open(...):</strong> Criar e
+                escrever no <code class="code-inline">result.txt</code> de forma
+                segura.
+              </li>
+              <li>
+                <strong class="text-cyan-400">datetime & timedelta:</strong>
+                Controlar o limite de 10 minutos da missão.
+              </li>
+              <li>
+                <strong class="text-cyan-400">pathlib:</strong> Usar caminhos
+                relativos (Obrigatório na ISS).
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card 4: Segurança -->
+          <div class="p-6 bg-slate-800 rounded-lg">
+            <h3 class="text-xl font-bold text-white mb-3">🛡️ Robustez</h3>
+            <ul class="list-disc list-inside space-y-2 text-slate-300">
+              <li>
+                <strong class="text-cyan-400">Try / Except:</strong> Impedir que
+                o programa "crashe" se um sensor falhar.
+              </li>
+              <li>
+                <strong class="text-cyan-400">Logzero:</strong> Registar tudo o
+                que acontece para podermos fazer debugging depois.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Conclusão -->
+      <section>
+        <h2
+          class="text-3xl font-bold text-white mb-6 border-b border-slate-700 pb-2"
+        >
+          4. A Missão de Hoje
+        </h2>
+        <p class="text-lg mb-4">Agora é a vossa vez.</p>
+
+        <ol class="list-decimal list-inside space-y-4 text-lg">
+          <li>
+            <strong>Merge:</strong> Façam
+            <code class="code-inline">git pull</code> e tentem fundir o código
+            de um colega no vosso branch.
+          </li>
+          <li>
+            <strong>Modularizar:</strong> Se o vosso
+            <code class="code-inline">main.py</code> está grande, movam funções
+            para ficheiros novos (ex:
+            <code class="code-inline">calculos.py</code>).
+          </li>
+          <li>
+            <strong>Checklist:</strong> Vejam a lista acima. Falta-vos
+            implementar alguma coisa (ex: tratamento de erros `try/except`)?
+          </li>
+        </ol>
+
+        <p class="mt-8 text-xl font-bold text-green-400 text-center">
+          Vamos integrar o sistema!
+        </p>
+      </section>
+    </div>
+
+    <!-- SCRIPT para o efeito de spoiler -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const spoilers = document.querySelectorAll(".spoiler");
+        spoilers.forEach((spoiler) => {
+          spoiler.addEventListener(
+            "click",
+            () => {
+              spoiler.classList.add("revealed");
+            },
+            { once: true }
+          );
+        });
+      });
+    </script>
+  </body>
+</html>
