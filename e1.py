@@ -1,10 +1,4 @@
 # Function to add names to a list
-def adicionar_nomes_lista(nome1, nome2, nome3, nome4, nome5):
-    """
-    Adds five names to a list and returns the list
-    """
-    lista_nomes = [nome1, nome2, nome3, nome4, nome5]
-    return lista_nomes
 
 # Main program
 print("\n--- App de Nomes ---")
@@ -17,11 +11,13 @@ nome3 = input("Nome 3: ")
 nome4 = input("Nome 4: ")
 nome5 = input("Nome 5: ")
 
+lista_nomes = [nome1, nome2, nome3, nome4, nome5]
+
 # Add names to list using the function
-lista = adicionar_nomes_lista(nome1, nome2, nome3, nome4, nome5)
+# lista = adicionar_nomes_lista(nome1, nome2, nome3, nome4, nome5)
 
 # Print each name using a loop
 print("\n--- Lista de Nomes ---")
-for nome in lista:
+for nome in lista_nomes:
     print(f"- {nome} é a mais recente aquisição da equipa ESA AstroPi!")
 
