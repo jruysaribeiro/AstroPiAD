@@ -4,18 +4,25 @@ from astro_pi_orbit import ISS
 import time
 iss = ISS()
 
-coord1=(iss.coordinates())
+coord1={
+    "coord":iss.coordinates(),
+    "time":time.localtime()
+}
 time.sleep(30) 
-coord2=(iss.coordinates())
+coord2={
+    "coord":iss.coordinates(),
+    "time":time.ctime()
+}
 
+lat1=coord1["coord"].latitude.degrees
+long1=coord1["coord"].longitude.degrees
+alt1=coord1["coord"].elevation.m
+time1=coord1["time"]
 
-lat1=coord1.latitude.degrees
-long1=coord1.longitude.degrees
-alt1=coord1.elevation.m
+lat2=coord2["coord"].latitude.degrees
+long2=coord2["coord"].longitude.degrees
+alt2=coord2["coord"].elevation.m
+time2=coord2["time"]
 
-lat2=coord2.latitude.degrees
-long2=coord2.longitude.degrees
-alt2=coord2.elevation.m
-    
-print(alt1,lat1,long1)
-print(alt2,lat2,long2)
+print(alt1,lat1,long1,time1)
+print(alt2,lat2,long2,time2)
