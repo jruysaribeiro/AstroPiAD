@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-PT" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sessão 2.2: Gestão de Projeto</title>
+    <!-- Carregar Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Tipografia Inter */
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      /* Realce de sintaxe simples */
+      .code-block {
+        background-color: #1e293b; /* slate-800 */
+        color: #e2e8f0; /* slate-200 */
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        font-family: "Courier New", Courier, monospace;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+      .code-inline {
+        background-color: #334155; /* slate-700 */
+        color: #f1f5f9; /* slate-100 */
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.375rem;
+        font-family: "Courier New", Courier, monospace;
+        font-size: 0.9em;
+      }
+      .comment {
+        color: #64748b; /* slate-500 */
+      }
+      .keyword {
+        color: #7dd3fc; /* sky-400 */
+      }
+      .function {
+        color: #a5b4fc; /* indigo-300 */
+      }
+      .string {
+        color: #fde047; /* yellow-300 */
+      }
+      .number {
+        color: #86efac; /* green-300 */
+      }
+
+      /* CSS para o efeito de Spoiler */
+      .spoiler {
+        filter: blur(5px);
+        cursor: pointer;
+        transition: filter 0.3s ease-in-out;
+        user-select: none;
+      }
+      .spoiler:hover {
+        filter: blur(3px);
+      }
+      .spoiler.revealed {
+        filter: blur(0px);
+        cursor: default;
+        user-select: auto;
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+      };
+    </script>
+  </head>
+  <body class="bg-slate-900 text-slate-300 leading-relaxed">
+    <div class="max-w-4xl mx-auto p-6 md:p-12">
+      <!-- Cabeçalho -->
+      <header class="mb-12">
+        <h1 class="text-4xl md:text-5xl font-black text-white mb-2">
+          Sessão 2 (Parte 2): Gestão de Projeto
+        </h1>
+        <p class="text-2xl text-yellow-300">O Nosso "Sprint" Inicial</p>
+      </header>
+
+      <!-- Introdução -->
+      <section
+        class="mb-12 p-6 bg-slate-800 rounded-lg border border-yellow-500"
+      >
+        <h2 class="text-3xl font-bold text-white mb-4">A Missão de Hoje</h2>
+        <p class="text-lg">
+          Acabámos de fazer o brainstorming de engenharia. Temos pelo menos dois
+          planos viáveis (Plano A: GPS e Plano B: Câmara).
+        </p>
+        <p class="mt-2">
+          Agora, temos de agir como uma equipa de software. Antes de "bater
+          código", precisamos de um plano. Esta é a nossa
+          <strong>reunião de planeamento do "Sprint"</strong>.
+        </p>
+        <p class="mt-2">
+          O nosso objetivo é sair daqui com tarefas claras, para que na próxima
+          sessão possamos começar a programar e a otimizar de forma organizada.
+        </p>
+      </section>
+
+      <!-- Secção 1: A Decisão -->
+      <section class="mb-12">
+        <h2
+          class="text-3xl font-bold text-white mb-6 border-b border-slate-700 pb-2"
+        >
+          1. A Decisão: Qual é o nosso MVP?
+        </h2>
+        <p class="mb-6">
+          MVP significa "Minimum Viable Product" (Produto Mínimo Viável). Qual é
+          a versão *mais simples* do nosso projeto que cumpre 100% dos
+          requisitos da missão (calcular a velocidade e escrever no
+          `result.txt`)?
+        </p>
+
+        <div class="spoiler p-4 bg-slate-800 rounded-lg">
+          <h4 class="text-xl font-bold text-white mb-2">
+            Debate da Equipa (Cliquem para focar)
+          </h4>
+          <ul class="list-disc list-inside space-y-2">
+            <li>
+              <strong>Plano A (GPS/Haversine):</strong>
+              <ul class="list-circle list-inside ml-6">
+                <li>
+                  <strong class="text-green-400">Pró:</strong> Relativamente
+                  simples. Depende de matemática, que é fiável.
+                </li>
+                <li>
+                  <strong class="text-red-400">Contra:</strong> Não usa a câmara
+                  "fixe". O cálculo de Haversine tem de ser perfeito.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong>Plano B (Câmara/OpenCV):</strong>
+              <ul class="list-circle list-inside ml-6">
+                <li>
+                  <strong class="text-green-400">Pró:</strong> Muito mais
+                  avançado e interessante. Permite muitas otimizações de imagem.
+                </li>
+                <li>
+                  <strong class="text-red-400">Contra:</strong> Muito mais
+                  complexo. Depende de
+                  <code class="code-inline">OpenCV</code> (se permitido) ou
+                  <code class="code-inline">Pillow</code>. E se houver 100% de
+                  nuvens? O *feature matching* pode falhar.
+                </li>
+              </ul>
+            </li>
+            <li class="mt-4">
+              <strong class="text-yellow-300">Recomendação de MVP:</strong>
+              Focar 100% no <strong>Plano A (GPS)</strong>. Fazer com que
+              funcione perfeitamente. Só depois de o MVP estar completo, usar o
+              resto do tempo para otimizar ou tentar o "stretch goal" (objetivo
+              extra) do Plano B.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Secção 2: "Work Breakdown Structure" (WBS) -->
+      <section class="mb-12">
+        <h2
+          class="text-3xl font-bold text-white mb-6 border-b border-slate-700 pb-2"
+        >
+          2. Dividir o Projeto (Work Breakdown)
+        </h2>
+        <p class="mb-6">
+          Vamos assumir que escolhemos o <strong>Plano A (GPS)</strong>. Não
+          podemos ter 3 pessoas a editar o
+          <code class="code-inline">main.py</code> ao mesmo tempo. Temos de
+          dividir o trabalho em "módulos" (ficheiros .py separados).
+        </p>
+
+        <div class="p-6 bg-slate-800 rounded-lg">
+          <h4 class="text-xl font-bold text-white mb-4">
+            Exemplo de WBS (Work Breakdown Structure):
+          </h4>
+          <ol class="list-decimal list-inside space-y-4">
+            <li>
+              <strong class="text-white"
+                >Tarefa 1: O "Esqueleto" (<code class="code-inline"
+                  >main.py</code
+                >)</strong
+              >
+              <p class="text-sm text-slate-400 ml-6">
+                Criar o loop principal de 10 minutos (com
+                <code class="code-inline">datetime.timedelta</code>) e a
+                estrutura
+                <code class="code-inline">if __name__ == "__main__":</code>.
+                Deve chamar funções que ainda não existem.
+              </p>
+            </li>
+            <li>
+              <strong class="text-white"
+                >Tarefa 2: O Módulo de Órbita (<code class="code-inline"
+                  >orbit_utils.py</code
+                >)</strong
+              >
+              <p class="text-sm text-slate-400 ml-6">
+                Criar um ficheiro
+                <code class="code-inline">orbit_utils.py</code>. Criar uma
+                função <code class="code-inline">get_location_data()</code> que
+                importa <code class="code-inline">astro_pi_orbit</code> e
+                devolve (lat, lon, altitude) num formato limpo (ex: um
+                dicionário).
+              </p>
+            </li>
+            <li>
+              <strong class="text-white"
+                >Tarefa 3: O Módulo de Matemática (<code class="code-inline"
+                  >math_utils.py</code
+                >)</strong
+              >
+              <p class="text-sm text-slate-400 ml-6">
+                Criar um ficheiro
+                <code class="code-inline">math_utils.py</code>. Criar uma função
+                <code class="code-inline"
+                  >calcular_distancia_haversine(lat1, lon1, lat2, lon2)</code
+                >
+                que implementa a fórmula. Esta é uma tarefa de "bater código" e
+                otimizar pura.
+              </p>
+            </li>
+            <li>
+              <strong class="text-white"
+                >Tarefa 4: O Módulo de Ficheiros (<code class="code-inline"
+                  >file_utils.py</code
+                >)</strong
+              >
+              <p class="text-sm text-slate-400 ml-6">
+                Criar um ficheiro
+                <code class="code-inline">file_utils.py</code>. Criar a função
+                <code class="code-inline">escrever_resultado(velocidade)</code>
+                (que já fizemos na S1) e uma função
+                <code class="code-inline">setup_logging()</code> que configura o
+                <code class="code-inline">logzero</code>.
+              </p>
+            </li>
+            <li>
+              <strong class="text-white"
+                >Tarefa 5: A Integração (<code class="code-inline">main.py</code
+                >)</strong
+              >
+              <p class="text-sm text-slate-400 ml-6">
+                Importar tudo para o <code class="code-inline">main.py</code>.
+                Fazer com que o loop chame
+                <code class="code-inline">get_location_data()</code>, guarde os
+                resultados numa lista, passe-os para
+                <code class="code-inline">calcular_distancia_haversine()</code>,
+                calcule a média e envie para
+                <code class="code-inline">escrever_resultado()</code>.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Secção 3: O Workflow do Git -->
+      <section class="mb-12">
+        <h2
+          class="text-3xl font-bold text-white mb-6 border-b border-slate-700 pb-2"
+        >
+          3. Distribuição de Tarefas & Git Workflow
+        </h2>
+        <p class="mb-6">
+          Agora que temos 5 tarefas claras, como as distribuímos? É aqui que o
+          Git brilha.
+        </p>
+
+        <div class="spoiler p-6 bg-slate-800 rounded-lg">
+          <h4 class="text-xl font-bold text-white mb-4">
+            Debate de Workflow (Cliquem para focar)
+          </h4>
+
+          <h5 class="text-lg font-bold text-red-400">
+            Opção 1: O Caos (NÃO FAZER)
+          </h5>
+          <ul class="list-disc list-inside ml-6 mb-4">
+            <li>
+              Todos trabalham no *mesmo* branch (<code class="code-inline"
+                >main</code
+              >).
+            </li>
+            <li>
+              Todos editam <code class="code-inline">main.py</code> ao mesmo
+              tempo para adicionar a sua parte.
+            </li>
+            <li>
+              <strong>Resultado:</strong> "Merge Hell". Conflitos de Git
+              constantes, código que funciona num PC e não noutro. Frustração.
+            </li>
+          </ul>
+
+          <h5 class="text-lg font-bold text-green-400">
+            Opção 2: Workflow de "Feature Branch" (RECOMENDADO)
+          </h5>
+          <p class="mb-2">
+            Cada "Tarefa" que listámos em cima é uma "Feature" (funcionalidade).
+            Cada pessoa (ou par) trabalha na sua tarefa
+            <strong>no seu próprio branch</strong>.
+          </p>
+          <div class="code-block text-sm">
+            <pre>
+<span class="comment"># 1. O "Líder de Matemática" quer fazer a Tarefa 3.</span>
+<span class="comment"># Ele cria um branch SÓ para isso:</span>
+git checkout -b feature/haversine-math
+
+<span class="comment"># 2. Ele cria `math_utils.py` e programa a fórmula.</span>
+<span class="comment"># Testa-a de forma isolada. Quando funciona:</span>
+git add math_utils.py
+git commit -m "Implementada a fórmula Haversine"
+git push origin feature/haversine-math
+
+<span class="comment"># 3. No GitHub, ele abre um "Pull Request" para juntar</span>
+<span class="comment"># o seu branch 'feature/haversine-math' ao 'main'.</span>
+<span class="comment"># A equipa revê o código e aprova.</span>
+</pre>
+          </div>
+          <!-- *** LINHA EDITADA AQUI *** -->
+          <p class="mt-4">
+            <strong class="text-white">Vantagem:</strong> O Programador A pode
+            estar a otimizar a matemática no seu branch, enquanto o Programador
+            B está a otimizar o loop de 10 minutos no dele.
+            <strong>O trabalho deles não interfere um com o outro</strong> até
+            decidirem juntá-lo (`merge`).
+          </p>
+        </div>
+      </section>
+
+      <!-- Secção 4: A Tarefa de Hoje -->
+      <section class="mb-12">
+        <h2
+          class="text-3xl font-bold text-white mb-6 border-b border-slate-700 pb-2"
+        >
+          4. Tarefa de Hoje: O Plano no `README.md`
+        </h2>
+        <p class="text-lg mb-4">
+          O nosso "entregável" de planeamento é o **plano de projeto
+          atualizado**.
+        </p>
+
+        <h3 class="text-2xl font-bold text-white mt-8 mb-4">
+          Ação de Planeamento (15-20 min):
+        </h3>
+        <ol class="list-decimal list-inside space-y-2 text-lg">
+          <li>
+            <strong class="text-white"
+              >Abrir o <code class="code-inline">README.md</code> no VS
+              Code.</strong
+            >
+          </li>
+          <li>
+            <strong class="text-white">Documentar as vossas decisões:</strong>
+            <ul class="list-disc list-inside ml-6 text-base">
+              <li>"Método Escolhido: Plano A (GPS/Haversine)".</li>
+              <li>"Plano B (Câmara) será o nosso 'stretch goal'."</li>
+            </ul>
+          </li>
+          <li>
+            <strong class="text-white">Listar as Tarefas (WBS):</strong> Copiar
+            a lista de 5 tarefas que definimos para o
+            <code class="code-inline">README.md</code>.
+          </li>
+          <li>
+            <strong class="text-white">Atribuir Tarefas (Opcional):</strong>
+            "Tarefa 3 (Matemática): Programador A".
+          </li>
+          <li>
+            <strong class="text-white">Fazer Commit & Push:</strong> Usar o
+            painel do VS Code para submeter o vosso plano.
+            <div class="code-block text-sm mt-2">
+              <pre>
+<span class="comment"># Mensagem de Commit Perfeita:</span>
+"S2: Definido o WBS e o workflow de Git"
+</pre>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- *** NOVA SECÇÃO 5 ADICIONADA AQUI *** -->
+      <section>
+        <h2
+          class="text-3xl font-bold text-white mb-6 border-b border-slate-700 pb-2"
+        >
+          5. Ação Imediata (Resto da Sessão)
+        </h2>
+        <p class="text-lg mb-4">Plano feito. Agora, vamos começar.</p>
+        <p class="mb-4">
+          Se já atribuíram as tarefas, o vosso próximo passo é cada um criar o
+          seu "feature branch" para a tarefa que lhe foi atribuída. O objetivo é
+          que, no final desta sessão, já tenham os vossos branches criados e
+          talvez até os ficheiros <code class="code-inline">.py</code> iniciais
+          (ainda que vazios).
+        </p>
+        <h3 class="text-2xl font-bold text-white mt-8 mb-4">
+          Workflow: Começar a Tarefa
+        </h3>
+        <p class="mb-4">
+          O programador responsável pela <strong>Tarefa 3 (Matemática)</strong>,
+          por exemplo, vai fazer o seguinte no terminal do VS Code:
+        </p>
+        <div class="code-block text-sm">
+          <pre>
+<span class="comment"># 1. Garante que está no branch 'main' e tem o código mais recente</span>
+git checkout main
+git pull origin main
+
+<span class="comment"># 2. Cria o SEU branch de tarefa (feature)</span>
+git checkout -b feature/haversine-math
+
+<span class="comment"># 3. Cria o seu ficheiro de trabalho (touch cria um ficheiro vazio)</span>
+touch math_utils.py
+
+<span class="comment"># 4. Adiciona o ficheiro e faz o primeiro commit no branch</span>
+git add math_utils.py
+git commit -m "S2: Iniciado o branch para a matemática Haversine"
+
+<span class="comment"># 5. Faz 'push' do novo branch para o GitHub</span>
+git push -u origin feature/haversine-math
+</pre>
+        </div>
+        <p class="mt-4 text-lg">
+          <strong>Objetivo:</strong> Comecem a "bater código"!
+        </p>
+      </section>
+    </div>
+
+    <!-- SCRIPT para o efeito de spoiler -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const spoilers = document.querySelectorAll(".spoiler");
+        spoilers.forEach((spoiler) => {
+          spoiler.addEventListener(
+            "click",
+            () => {
+              spoiler.classList.add("revealed");
+            },
+            { once: true }
+          );
+        });
+      });
+    </script>
+  </body>
+</html>
