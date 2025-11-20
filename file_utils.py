@@ -1,10 +1,12 @@
 import logzero
-from logzero import logger
+from logzero import logger, setup_logger
+import math_utils
 
-logger.setup.logging()
+vel = math_utils.vel
 
-vel = 7.73
+setup_logger()
 
+logger.info('This logger is correctly outputed')
 
 def escrever_resultado(velocidade):
     with open('result.txt','w') as f:
