@@ -11,7 +11,7 @@ def haversine_STUDENT_VERSION(lat1, lon1, lat2, lon2):
     # REPLACE this with your formula
     R = 6371 + 408 # Radius + Altitude
     # ... their math ...
-    return 0 
+    return  
 
 # --- THE TEST BENCH ---
 def run_test():
