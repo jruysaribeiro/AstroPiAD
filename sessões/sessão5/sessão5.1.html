@@ -131,7 +131,9 @@
 
       <div class="code-block">
         <pre><code class="python">
-# --- CÓDIGO BASE DA MISSÃO (iss_speed.py) ---
+# --- CÓDIGO BASE DA MISSÃO (main.py) ---
+from picamzero import Camera
+from time import sleep
 from exif import Image
 from datetime import datetime
 import cv2
@@ -191,11 +193,54 @@ def calculate_speed_in_kmps(feature_distance, GSD, time_difference):
 
 # --- Execução Principal ---
 if __name__ == "__main__":
-    img1 = 'photo_0674.jpg' # Nome de exemplo
-    img2 = 'photo_0675.jpg' # Nome de exemplo
-    GSD = 12648 # cm/pixel
+    # --- PASSO 0: Capturar as Imagens ---
+    # No Astro Pi Replay Tool, isto simula tirar fotos
+    cam = Camera()
+    
+    img1 = 'foto_1.jpg'
+    img2 = 'foto_2.jpg'
+    
+    print("A capturar Imagem 1...")
+    cam.take_photo(img1)
+    
+    print("A aguardar 5 segundos...")
+    sleep(5)
+    
+    print("A capturar Imagem 2...")
+    cam.take_photo(img2)
+    
+    # Valor Mágico (cm por pixel)
+    GSD = 12648 
 
-    # ... O vosso código de execução aqui ...
+    print("--- A INICIAR CÁLCULO ---")
+
+    # 1. Calcular Tempo (usando os metadados das fotos capturadas)
+    time_diff = get_time_difference(img1, img2)
+    
+    # 2. Processar Imagens (Caixa Negra)
+    img1_cv, img2_cv = convert_to_cv(img1, img2)
+    kp1, kp2, des1, des2 = calculate_features(img1_cv, img2_cv)
+    matches = calculate_matches(des1, des2)
+    coords1, coords2 = find_matching_coordinates(kp1, kp2, matches)
+
+    # 3. Calcular Distância
+    avg_distance = calculate_mean_distance(coords1, coords2)
+
+    # 4. Calcular Velocidade
+    speed = calculate_speed_in_kmps(avg_distance, GSD, time_diff)
+
+    print(f"Velocidade Calculada: {speed:.4f} km/s")
+
+    # --- PASSO CRUCIAL: CRIAR O RESULT.TXT ---
+    # A ESA exige um ficheiro com APENAS o número, 
+    # formatado com 4 casas decimais.
+    
+    resultado_formatado = f"{speed:.4f}"
+    
+    with open("result.txt", "w") as ficheiro:
+        ficheiro.write(resultado_formatado)
+        
+    print(f"Sucesso! Ficheiro 'result.txt' criado com: {resultado_formatado}")
 </code></pre>
       </div>
     </section>
